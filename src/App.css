@@ -61,6 +61,10 @@ main {
     align-items: stretch;
 }
 
+.input {
+    overflow: visible;
+}
+
 input,
 .buttonsection button {
     font-size: 9rem;
@@ -153,8 +157,29 @@ svg.body {
     z-index: 6;
 }
 
-.buttonsection button {
+.buttonsection .button {
     width: 50%;
+    overflow: visible;
+}
+
+.buttonsection .button::after,
+.input::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 90%;
+    background-color: white;
+}
+
+.input::after {
+    width: 95%;
+    height: 95%;
+}
+
+.buttonsection button {
     color: black;
     font-size: 2.5rem;
     height: 7rem;

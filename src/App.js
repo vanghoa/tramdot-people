@@ -25,6 +25,9 @@ function App() {
         await htmlToImage.toPng(imageRef.current, {
             backgroundColor: '#baff00',
         });
+        await htmlToImage.toPng(imageRef.current, {
+            backgroundColor: '#baff00',
+        });
         await htmlToImage
             .toPng(imageRef.current, {
                 backgroundColor: '#baff00',
@@ -43,20 +46,26 @@ function App() {
     };
     return (
         <main>
-            <input
-                placeholder="Gõ tên"
-                spellCheck="false"
-                maxLength="5"
-                onChange={(e) => setText(e.target.value)}
-            ></input>
+            <div className="input">
+                <input
+                    placeholder="Gõ tên"
+                    spellCheck="false"
+                    maxLength="5"
+                    onChange={(e) => setText(e.target.value)}
+                ></input>
+            </div>
             <section ref={imageRef}>
                 <div className="artwork">
                     {SVGBodyArray[pose]({ text: text })}
                 </div>
             </section>
             <div className="buttonsection">
-                <button onClick={poseHandler}>Different pose</button>
-                <button onClick={imageHandler}>Save image</button>
+                <div className="button">
+                    <button onClick={poseHandler}>Different pose</button>
+                </div>
+                <div className="button">
+                    <button onClick={imageHandler}>Save image</button>
+                </div>
             </div>
         </main>
     );
