@@ -14,10 +14,19 @@ function App() {
         }
         setPose((pose) => pose + 1);
     };
-    const imageHandler = () => {
-        htmlToImage
-            .toJpeg(imageRef.current, {
-                cacheBust: true,
+    const imageHandler = async () => {
+        await wait(1000);
+        await htmlToImage.toPng(imageRef.current, {
+            backgroundColor: '#baff00',
+        });
+        await htmlToImage.toPng(imageRef.current, {
+            backgroundColor: '#baff00',
+        });
+        await htmlToImage.toPng(imageRef.current, {
+            backgroundColor: '#baff00',
+        });
+        await htmlToImage
+            .toPng(imageRef.current, {
                 backgroundColor: '#baff00',
             })
             .then((dataUrl) => {
@@ -118,5 +127,8 @@ export function Path({ ...rest }) {
 }
 function getRandomInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function wait(delay) {
+    return new Promise((resolve) => setTimeout(resolve, delay));
 }
 export default App;
