@@ -1,0 +1,163 @@
+@font-face {
+    font-family: 'tramdot';
+    src: url('jgs_tramdot.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'tramdot_display';
+    src: url('jgs_tramdot_display.woff') format('woff');
+}
+
+:root {
+    --color-yellow: #fff200;
+    --color-blue: #3fa9f5;
+    --color-white: white;
+    --color-orange: #f37421;
+    --color-green: #baff00;
+    --stroke-width: 0.3rem;
+    --svg-font: 10rem;
+}
+
+svg.filter {
+    position: fixed;
+    opacity: 0;
+}
+
+* {
+    font-family: 'tramdot';
+    text-rendering: geometricPrecision;
+    font-kerning: normal;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+}
+
+html,
+body,
+#root {
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-green);
+    font-size: 10px;
+}
+
+#root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    max-width: 400px;
+    max-height: 600px;
+    display: flex;
+    overflow: visible;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+input,
+.buttonsection button {
+    font-size: 9rem;
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    height: 1.5em;
+    filter: url('#glitch');
+    background-color: white;
+    line-height: 0px;
+    border: none;
+    z-index: 2;
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23F37421FF' stroke-width='8' stroke-dasharray='20%2c 20' stroke-dashoffset='9' stroke-linecap='square'/%3e%3c/svg%3e");
+}
+
+input * {
+    background-color: white;
+}
+
+section {
+    width: 100%;
+    flex-grow: 2;
+    overflow: visible;
+    z-index: 5;
+    pointer-events: none;
+}
+
+section svg {
+    position: absolute;
+    font-family: 'tramdot_display';
+    font-size: var(--svg-font);
+    overflow: visible;
+}
+
+section svg * {
+    font-family: 'tramdot_display';
+}
+
+/* svg stroke effect */
+
+.stroke_default {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: var(--stroke-width);
+    stroke: var(--color-orange);
+}
+section svg :is(text, path) {
+    fill: transparent;
+}
+section svg :is(text, path):nth-child(1) {
+    stroke: var(--color-yellow);
+    stroke-width: calc(var(--stroke-width) * 6);
+}
+section svg :is(text, path):nth-child(2) {
+    stroke: var(--color-blue);
+    stroke-width: calc(var(--stroke-width) * 4);
+}
+section svg :is(text, path):nth-child(3) {
+    stroke-width: calc(var(--stroke-width) * 2);
+}
+section svg :is(text, path):nth-child(4) {
+    stroke-width: 0px;
+    fill: var(--color-white);
+}
+/* artwork */
+.artwork {
+    overflow: visible;
+    width: 1px;
+    height: 1px;
+    left: 50%;
+    top: 50%;
+}
+
+/* head */
+svg.head {
+    z-index: 10;
+}
+
+/* body */
+svg.body {
+    transform: translate(-50%);
+}
+
+/* buttonsection */
+.buttonsection {
+    display: flex;
+    align-items: end;
+    gap: 5px;
+    overflow: visible;
+    z-index: 6;
+}
+
+.buttonsection button {
+    width: 50%;
+    color: black;
+    font-size: 2.5rem;
+    height: 7rem;
+    line-height: 0.8em;
+    overflow: visible;
+}
