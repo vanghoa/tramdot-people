@@ -203,6 +203,11 @@ svg.body {
     height: 95%;
 }
 
+.bgcolorsection .button::after {
+    width: 80%;
+    height: 80%;
+}
+
 .buttonsection button {
     color: black;
     font-size: 2rem;
