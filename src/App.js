@@ -2,10 +2,12 @@ import { useRef, useState } from 'react';
 import './App.css';
 import { SVGBodyArray } from './SVG';
 import * as htmlToImage from 'html-to-image';
+import { ReactComponent as Logo } from './logo.svg';
 
 function App() {
     const [text, setText] = useState('a');
     const [pose, setPose] = useState(0);
+    const [logo, setLogo] = useState('orange');
     const imageRef = useRef(null);
     const poseHandler = () => {
         if (pose >= SVGBodyArray.length - 1) {
@@ -15,23 +17,19 @@ function App() {
         setPose((pose) => pose + 1);
     };
     const imageHandler = async () => {
-        await wait(1000);
-        await htmlToImage.toPng(imageRef.current, {
-            backgroundColor: '#baff00',
-        });
-        await htmlToImage.toPng(imageRef.current, {
-            backgroundColor: '#baff00',
-        });
-        await htmlToImage.toPng(imageRef.current, {
-            backgroundColor: '#baff00',
-        });
-        await htmlToImage.toPng(imageRef.current, {
-            backgroundColor: '#baff00',
-        });
+        const bgColor = getComputedStyle(document.body).backgroundColor;
+        const options = {
+            backgroundColor: bgColor,
+            canvasWidth: 1000,
+            canvasHeight: 1000,
+        };
+        await wait(500);
+        await htmlToImage.toPng(imageRef.current, options);
+        await htmlToImage.toPng(imageRef.current, options);
+        await htmlToImage.toPng(imageRef.current, options);
+        await htmlToImage.toPng(imageRef.current, options);
         await htmlToImage
-            .toPng(imageRef.current, {
-                backgroundColor: '#baff00',
-            })
+            .toPng(imageRef.current, options)
             .then((dataUrl) => {
                 const link = document.createElement('a');
                 link.download = `your-tramdot-people.png`;
@@ -44,21 +42,81 @@ function App() {
                 console.log(err);
             });
     };
+    const backgroundHandler = (color, logocolor) => {
+        document.body.style.backgroundColor = color;
+        setLogo(logocolor);
+    };
     return (
         <main>
             <div className="input">
                 <input
-                    placeholder="Gõ tên"
+                    placeholder="type here"
                     spellCheck="false"
                     maxLength="5"
-                    onChange={(e) => setText(e.target.value)}
+                    onChange={({ target: { value } }) =>
+                        setText(value === '' ? '?' : value)
+                    }
                 ></input>
             </div>
-            <section ref={imageRef}>
-                <div className="artwork">
-                    {SVGBodyArray[pose]({ text: text })}
+            <div className="sectionwrapper">
+                <section>
+                    <div className="artwork">
+                        {SVGBodyArray[pose]({ text: text })}
+                    </div>
+                </section>
+            </div>
+            <div className="imagewrapper">
+                <section ref={imageRef}>
+                    <div className="artwork">
+                        {SVGBodyArray[pose]({ text: text })}
+                    </div>
+                    <Logo className={`logo ${logo}`} />
+                </section>
+            </div>
+            <div className="bgcolorsection">
+                <div className="button green">
+                    <button
+                        onClick={() =>
+                            backgroundHandler('var(--color-green)', 'orange')
+                        }
+                    ></button>
                 </div>
-            </section>
+                <div className="button blue">
+                    <button
+                        onClick={() =>
+                            backgroundHandler('var(--color-blue)', 'white')
+                        }
+                    ></button>
+                </div>
+                <div className="button pink">
+                    <button
+                        onClick={() =>
+                            backgroundHandler('var(--color-pink)', 'white')
+                        }
+                    ></button>
+                </div>
+                <div className="button greendam">
+                    <button
+                        onClick={() =>
+                            backgroundHandler('var(--color-greendam)', 'white')
+                        }
+                    ></button>
+                </div>
+                <div className="button purple">
+                    <button
+                        onClick={() =>
+                            backgroundHandler('var(--color-purple)', 'white')
+                        }
+                    ></button>
+                </div>
+                <div className="button orange">
+                    <button
+                        onClick={() =>
+                            backgroundHandler('var(--color-orange)', 'white')
+                        }
+                    ></button>
+                </div>
+            </div>
             <div className="buttonsection">
                 <div className="button">
                     <button onClick={poseHandler}>Different pose</button>
