@@ -8,6 +8,9 @@ function App() {
     const [text, setText] = useState('a');
     const [pose, setPose] = useState(0);
     const [logo, setLogo] = useState('orange');
+    const [indicator, setIndicator] = useState('Save image');
+    const [openImg, setOpenImg] = useState('');
+    const [srcImg, setSrcImg] = useState('');
     const imageRef = useRef(null);
     const poseHandler = () => {
         if (pose >= SVGBodyArray.length - 1) {
@@ -37,6 +40,10 @@ function App() {
                 link.target = '_blank';
                 link.rel = 'noopener noreferrer';
                 link.click();
+                //
+                setSrcImg(dataUrl);
+                setIndicator('scroll down to save!');
+                setOpenImg('open');
             })
             .catch((err) => {
                 console.log(err);
@@ -47,85 +54,102 @@ function App() {
         setLogo(logocolor);
     };
     return (
-        <main>
-            <div className="input">
-                <input
-                    placeholder="type here"
-                    spellCheck="false"
-                    maxLength="5"
-                    onChange={({ target: { value } }) =>
-                        setText(value === '' ? '?' : value)
-                    }
-                ></input>
-            </div>
-            <div className="sectionwrapper">
-                <section>
-                    <div className="artwork">
-                        {SVGBodyArray[pose]({ text: text })}
+        <>
+            <main>
+                <div className="input">
+                    <input
+                        placeholder="type here"
+                        spellCheck="false"
+                        maxLength="5"
+                        onChange={({ target: { value } }) =>
+                            setText(value === '' ? '?' : value)
+                        }
+                    ></input>
+                </div>
+                <div className="sectionwrapper">
+                    <section>
+                        <div className="artwork">
+                            {SVGBodyArray[pose]({ text: text })}
+                        </div>
+                    </section>
+                </div>
+                <div className="imagewrapper">
+                    <section ref={imageRef}>
+                        <div className="artwork">
+                            {SVGBodyArray[pose]({ text: text })}
+                        </div>
+                        <Logo className={`logo ${logo}`} />
+                    </section>
+                </div>
+                <div className="bgcolorsection">
+                    <div className="button green">
+                        <button
+                            onClick={() =>
+                                backgroundHandler(
+                                    'var(--color-green)',
+                                    'orange'
+                                )
+                            }
+                        ></button>
                     </div>
-                </section>
-            </div>
-            <div className="imagewrapper">
-                <section ref={imageRef}>
-                    <div className="artwork">
-                        {SVGBodyArray[pose]({ text: text })}
+                    <div className="button blue">
+                        <button
+                            onClick={() =>
+                                backgroundHandler('var(--color-blue)', 'white')
+                            }
+                        ></button>
                     </div>
-                    <Logo className={`logo ${logo}`} />
-                </section>
+                    <div className="button pink">
+                        <button
+                            onClick={() =>
+                                backgroundHandler('var(--color-pink)', 'white')
+                            }
+                        ></button>
+                    </div>
+                    <div className="button greendam">
+                        <button
+                            onClick={() =>
+                                backgroundHandler(
+                                    'var(--color-greendam)',
+                                    'white'
+                                )
+                            }
+                        ></button>
+                    </div>
+                    <div className="button purple">
+                        <button
+                            onClick={() =>
+                                backgroundHandler(
+                                    'var(--color-purple)',
+                                    'white'
+                                )
+                            }
+                        ></button>
+                    </div>
+                    <div className="button orange">
+                        <button
+                            onClick={() =>
+                                backgroundHandler(
+                                    'var(--color-orange)',
+                                    'white'
+                                )
+                            }
+                        ></button>
+                    </div>
+                </div>
+                <div className="buttonsection">
+                    <div className="button">
+                        <button onClick={poseHandler}>Different pose</button>
+                    </div>
+                    <div className="button">
+                        <button onClick={imageHandler}>{indicator}</button>
+                    </div>
+                </div>
+            </main>
+            <div className={`canvasimage ${openImg}`}>
+                <img src={srcImg} />
             </div>
-            <div className="bgcolorsection">
-                <div className="button green">
-                    <button
-                        onClick={() =>
-                            backgroundHandler('var(--color-green)', 'orange')
-                        }
-                    ></button>
-                </div>
-                <div className="button blue">
-                    <button
-                        onClick={() =>
-                            backgroundHandler('var(--color-blue)', 'white')
-                        }
-                    ></button>
-                </div>
-                <div className="button pink">
-                    <button
-                        onClick={() =>
-                            backgroundHandler('var(--color-pink)', 'white')
-                        }
-                    ></button>
-                </div>
-                <div className="button greendam">
-                    <button
-                        onClick={() =>
-                            backgroundHandler('var(--color-greendam)', 'white')
-                        }
-                    ></button>
-                </div>
-                <div className="button purple">
-                    <button
-                        onClick={() =>
-                            backgroundHandler('var(--color-purple)', 'white')
-                        }
-                    ></button>
-                </div>
-                <div className="button orange">
-                    <button
-                        onClick={() =>
-                            backgroundHandler('var(--color-orange)', 'white')
-                        }
-                    ></button>
-                </div>
-            </div>
-            <div className="buttonsection">
-                <div className="button">
-                    <button onClick={poseHandler}>Different pose</button>
-                </div>
-                <div className="button">
-                    <button onClick={imageHandler}>Save image</button>
-                </div>
-            </div>
-        </main>
+        </>
     );
 }
 

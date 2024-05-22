@@ -51,19 +51,21 @@ body,
     width: 100%;
     height: 100%;
     font-size: 10px;
+    overflow-x: hidden;
 }
 
 #root {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 1rem;
 }
 
-main {
+#root > * {
+    margin: 0 auto;
     width: 100%;
-    height: 100%;
     max-width: 400px;
+}
+
+main {
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -287,4 +289,19 @@ section .logo.white {
     position: fixed;
     left: -100000px;
     top: -10000px;
+}
+
+.canvasimage {
+    height: 0px;
+}
+
+.canvasimage.open {
+    height: unset;
+}
+
+.canvasimage.open img {
+    margin-top: 7rem;
+    margin-bottom: 7rem;
+    border: solid var(--color-orange) 3px;
+    max-width: 100%;
 }
