@@ -166,7 +166,7 @@ export function SVGText({ children = '', style = {}, className = '' }) {
     );
 }
 
-export function SVGPath({ children, className = '', ...rest }) {
+export function SVGPath({ children, className = '', solid = <></>, ...rest }) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -174,7 +174,8 @@ export function SVGPath({ children, className = '', ...rest }) {
             className={`${className} body`}
             {...rest}
         >
-            {Array.from({ length: 4 }).map((e, k) => children)}
+            <g>{solid}</g>
+            <g>{Array.from({ length: 4 }).map((e, k) => children)}</g>
         </svg>
     );
 }
